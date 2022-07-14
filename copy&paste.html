@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<style>
+.tooltip {
+  position: relative;
+  display: inline-block;
+  margin: 0 0.5rem;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+.flex {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-bottom:2rem;
+}
+.flex button, h2 {
+  margin:1rem;
+}
+.flex-body {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom:2rem;
+  max-width:1440px;
+  margin:auto;
+}
+.flex-body > div{
+  width:100%;
+  display:flex;
+  align-items: center;
+  margin:.3rem 2rem;
+}
+
+</style>
+</head>
+<body>
+
+    <div class="flex">
+      <h2>CopyBoard</h2>
+      <div class="flex">
+        <button id="inputButt"><h3>+Input</h3></button>
+        <button id="responseButt"><h3>+Response</h3></button>
+      </div>
+      
+    </div>
+      
+    <div class="flex-body">
+
+<!--User Input textfield-->
+<div class="myInputOuter">
+      <input type="text" value="Hello World" class="myInput">
+
+      <div>
+        <button class="copyInput tooltip" onmouseout="outFunc()">
+          <span class="tooltiptext" class="myInputTooltip">Copy to clipboard</span>Copy text
+        </button>
+        <button id="splitText">Split Text</button>
+      </div>
+</div>
+<!--Split Text fName lName-->
+
+<!--F-NAME-->
+<div class="myInputOuter">
+      <input type="text" value="" class="myInput" id="fName">
+
+      <div class="tooltip">
+        <button class="copyInput" onmouseout="outFunc()">
+          <span class="tooltiptext" class="myInputTooltip">Copy to clipboard</span>Copy text
+        </button>
+      </div>
+</div>
+<!--L-NAME-->
+<div class="myInputOuter">
+      <input type="text" value="" class="myInput" id="lName">
+
+      <div class="tooltip">
+        <button class="copyInput" onmouseout="outFunc()">
+          <span class="tooltiptext" class="myInputTooltip">Copy to clipboard</span>Copy text
+        </button>
+      </div>
+</div>
+<!--Response to Client 1-->
+      <div class="responses">
+          <textarea type="text" value="" class="myResponse" disabled="true">
+Your IT request has been completed. Please have your team member contact the IT Service Desk for assistance logging in.
+
+
+Internal calls from all campuses call ext.3333
+External calls 848-237-3333
+
+
+Thank you,
+Identity and Access Mgmt</textarea>
+    
+          <div class="tooltip">
+              <button class="copyResponse" onclick="" onmouseout="outFunc()">
+              <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+              Copy text
+              </button>
+          </div>
+    
+      </div>
+    
+<!--Response to Client 2-->
+	
+      <div class="responses">
+          <textarea type="text" value="" class="myResponse" disabled="true">
+Please provide a person with the same job/role that the access can be modeled after.
+
+
+Internal calls from all campuses call ext.3333
+External calls 848-237-3333
+
+Thank You,
+Identity and Access Mgmt</textarea>
+          
+          <div class="tooltip">
+              <button class="copyResponse" onclick="" onmouseout="outFunc()">
+              <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+              Copy text
+              </button>
+          </div>
+          
+      </div>	
+
+<!--Response to Client 3-->
+
+      <div class="responses">
+        <textarea type="text" value="" class="myResponse" disabled="true">
+Information must be provided to determine license eligibility:
+
+Please Explain why MS Office License is needed:
+
+
+
+
+
+Department Name:
+
+
+
+Name of Incompatible Software Application</textarea>
+        
+        <div class="tooltip">
+            <button class="copyResponse" onclick="" onmouseout="outFunc()">
+            <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+            Copy text
+            </button>
+        </div>
+        
+    </div>
+  
+	
+	
+<!--Response to Client 4-->
+
+      <div class="responses">
+        <textarea type="text" value="" class="myResponse" disabled="true">
+Your request has been received and is processing. For any questions please contact IT Service Desk for assistance.
+
+Internal calls from all campuses call ext.3333
+External calls 848-237-3333
+
+Thank you,
+Identity and Access Mgmt</textarea>
+        
+        <div class="tooltip">
+            <button class="copyResponse" onclick="" onmouseout="outFunc()">
+            <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+            Copy text
+            </button>
+        </div>
+        
+    </div>
+  </div>
+	
+<!--User Input Script-->
+
+<script>
+  var copyText = document.getElementsByClassName("myInput");
+  var splitText = document.getElementById("splitText")
+  var fInput = document.getElementById("fName")
+  var lInput = document.getElementById("lName")
+  let fullName;
+  var input = document.getElementsByClassName("myInput");
+	var copyInput = document.getElementsByClassName("copyInput")
+    var arr = []
+	
+	for(var i = 0 ; i < copyInput.length; i++) {
+        let inputArray = arr.push(copyInput[i])
+		copyInput[i].addEventListener("click",(j) => {
+
+            input[inputArray - 1].select();
+  	        input[inputArray - 1].setSelectionRange(0, 99999);
+  	        navigator.clipboard.writeText(input[inputArray - 1].value);
+            
+		});
+
+    splitText.addEventListener("click", (c) => {
+              input[inputArray - 1].select(c);
+              input[inputArray - 1].setSelectionRange(0, 99999);
+              let fullText = input[inputArray - 1].value
+              switch (true) {
+                case fullText.includes("."):
+                  fullName = fullText.split(".",);
+                  break;
+                case fullText.includes(". "):
+                  fullName = fullText.split(".",);
+                  break;
+                case fullText.includes(","):
+                  fullName = fullText.split(",",);
+                  break;
+                case fullText.includes(", "):
+                  fullName = fullText.split(",",);
+                  break;
+                case fullText.includes("  "):
+                  fullName = fullText.split("  ",);
+                  break;
+                case fullText.includes(" "):
+                  fullName = fullText.split(" ",);
+                  break;
+              }     
+              let fName = fullName[0]
+              let lName = fullName[1]
+              fInput.value = fName
+              lInput.value = lName
+
+
+            })
+
+	}
+
+
+  function outFunc() {
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copy to clipboard";
+  }
+
+ 
+
+</script>
+
+<!--Add Input-->
+<script>
+
+    var inputArr = document.getElementsByClassName("myInputOuter")
+    var inputButt = document.getElementById("inputButt")
+    var lastChild = inputArr.length - 1
+    let inputCode = "<div class='myInputOuter'> <input type='text' value='Hello World' class='myInput'> <div> <button class='copyInput tooltip' onmouseout='outFunc()'> <span class='tooltiptext' class='myInputTooltip'>Copy to clipboard</span>Copy text </button> <button id='splitText'>Split Text</button> </div></div>"
+
+    inputButt.addEventListener("click", (j) => {
+
+      console.log(inputArr[lastChild])
+      inputArr[lastChild].insertAdjacentHTML('afterend', inputCode)
+      save()
+    })
+    
+    function save() {
+      console.log(document)
+    }
+</script>
+
+<!--Response Script-->
+<script>
+	var resp = document.getElementsByClassName("myResponse");
+	var copyResp = document.getElementsByClassName("copyResponse")
+    var arr = []
+	
+	for(var i = 0 ; i < copyResp.length; i++) {
+        let responseArray = arr.push(copyResp[i])
+		copyResp[i].addEventListener("click",(j) => {
+
+            resp[responseArray - 1].select();
+  	        resp[responseArray - 1].setSelectionRange(0, 99999);
+  	        navigator.clipboard.writeText(resp[responseArray - 1].value);
+
+            var tooltip = document.getElementById("myTooltip");
+            tooltip.innerHTML = "Copied: " + resp[responseArray - 1].value;
+		});
+	}
+</script>
+
+	
+</body>
+</html>
+	
+	
