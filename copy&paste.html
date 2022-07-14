@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -7,6 +5,12 @@
 
 <style>
 .tooltip {
+  position: relative;
+  display: inline-block;
+  margin: 0 0.5rem;
+}
+
+.tooltip1 {
   position: relative;
   display: inline-block;
   margin: 0 0.5rem;
@@ -41,7 +45,7 @@
 }
 
 .tooltip:hover .tooltiptext {
-  visibility: visible;
+  visibility: hidden;
   opacity: 1;
 }
 .flex {
@@ -80,7 +84,10 @@
       <h2>CopyBoard</h2>
       <div class="flex">
         <button id="inputButt"><h3>+Input</h3></button>
-        <button id="responseButt"><h3>+Response</h3></button>
+        <button id="addResponse"><h3>+Response</h3></button>
+        <button onclick="Save()"><h3>Save</h3></button>
+        <button onclick="Edit()"><h3>Edit</h3></button>
+
       </div>
       
     </div>
@@ -89,11 +96,11 @@
 
 <!--User Input textfield-->
 <div class="myInputOuter">
-      <input type="text" value="Hello World" class="myInput">
+      <input type="text" value="" class="myInput">
 
-      <div>
-        <button class="copyInput tooltip" onmouseout="outFunc()">
-          <span class="tooltiptext" class="myInputTooltip">Copy to clipboard</span>Copy text
+      <div class="tooltip1">
+        <button class="copyInput" >
+          Copy text
         </button>
         <button id="splitText">Split Text</button>
       </div>
@@ -105,8 +112,8 @@
       <input type="text" value="" class="myInput" id="fName">
 
       <div class="tooltip">
-        <button class="copyInput" onmouseout="outFunc()">
-          <span class="tooltiptext" class="myInputTooltip">Copy to clipboard</span>Copy text
+        <button class="copyInput" >
+          Copy text
         </button>
       </div>
 </div>
@@ -115,15 +122,14 @@
       <input type="text" value="" class="myInput" id="lName">
 
       <div class="tooltip">
-        <button class="copyInput" onmouseout="outFunc()">
-          <span class="tooltiptext" class="myInputTooltip">Copy to clipboard</span>Copy text
+        <button class="copyInput" >
+          Copy text
         </button>
       </div>
 </div>
 <!--Response to Client 1-->
       <div class="responses">
-          <textarea type="text" value="" class="myResponse" disabled="true">
-Your IT request has been completed. Please have your team member contact the IT Service Desk for assistance logging in.
+          <textarea type="text" value="" class="myResponse" disabled="">Your IT request has been completed. Please have your team member contact the IT Service Desk for assistance logging in.
 
 
 Internal calls from all campuses call ext.3333
@@ -133,20 +139,20 @@ External calls 848-237-3333
 Thank you,
 Identity and Access Mgmt</textarea>
     
-          <div class="tooltip">
-              <button class="copyResponse" onclick="" onmouseout="outFunc()">
-              <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+          <div class="tooltip1">
+              <button class="copyResponse" onclick="" >
               Copy text
               </button>
           </div>
+
+          
     
       </div>
     
 <!--Response to Client 2-->
 	
       <div class="responses">
-          <textarea type="text" value="" class="myResponse" disabled="true">
-Please provide a person with the same job/role that the access can be modeled after.
+          <textarea type="text" value="" class="myResponse" disabled="">Please provide a person with the same job/role that the access can be modeled after.
 
 
 Internal calls from all campuses call ext.3333
@@ -156,19 +162,19 @@ Thank You,
 Identity and Access Mgmt</textarea>
           
           <div class="tooltip">
-              <button class="copyResponse" onclick="" onmouseout="outFunc()">
-              <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+              <button class="copyResponse" onclick="" >
               Copy text
               </button>
           </div>
           
+          
+
       </div>	
 
 <!--Response to Client 3-->
 
       <div class="responses">
-        <textarea type="text" value="" class="myResponse" disabled="true">
-Information must be provided to determine license eligibility:
+        <textarea type="text" value="" class="myResponse" disabled="">Information must be provided to determine license eligibility:
 
 Please Explain why MS Office License is needed:
 
@@ -183,12 +189,13 @@ Department Name:
 Name of Incompatible Software Application</textarea>
         
         <div class="tooltip">
-            <button class="copyResponse" onclick="" onmouseout="outFunc()">
-            <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+            <button class="copyResponse" onclick="" >
             Copy text
             </button>
         </div>
         
+        
+
     </div>
   
 	
@@ -196,8 +203,7 @@ Name of Incompatible Software Application</textarea>
 <!--Response to Client 4-->
 
       <div class="responses">
-        <textarea type="text" value="" class="myResponse" disabled="true">
-Your request has been received and is processing. For any questions please contact IT Service Desk for assistance.
+        <textarea type="text" value="" class="myResponse" disabled="">Your request has been received and is processing. For any questions please contact IT Service Desk for assistance.
 
 Internal calls from all campuses call ext.3333
 External calls 848-237-3333
@@ -206,13 +212,15 @@ Thank you,
 Identity and Access Mgmt</textarea>
         
         <div class="tooltip">
-            <button class="copyResponse" onclick="" onmouseout="outFunc()">
+            <button class="copyResponse" onclick="" >
             <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
             Copy text
             </button>
         </div>
         
-    </div>
+        
+
+    </div><div class="responses"> <textarea type="text" value="" class="myResponse" disabled=""></textarea> <div class="tooltip"> <button class="copyResponse" onclick="" > <span class="tooltiptext" id="myTooltip">Copy to clipboard</span> Copy text </button> </div> </div><div class="responses"> <textarea type="text" value="" class="myResponse" disabled=""></textarea> <div class="tooltip"> <button class="copyResponse" onclick="" > <span class="tooltiptext" id="myTooltip">Copy to clipboard</span> Copy text </button> </div> </div><div class="responses"> <textarea type="text" value="" class="myResponse" disabled=""></textarea> <div class="tooltip"> <button class="copyResponse" onclick="" > <span class="tooltiptext" id="myTooltip">Copy to clipboard</span> Copy text </button> </div> </div>
   </div>
 	
 <!--User Input Script-->
@@ -234,6 +242,7 @@ Identity and Access Mgmt</textarea>
             input[inputArray - 1].select();
   	        input[inputArray - 1].setSelectionRange(0, 99999);
   	        navigator.clipboard.writeText(input[inputArray - 1].value);
+            input[inputArray - 1].setAttribute('value', input[inputArray - 1].value)
             
 		});
 
@@ -271,12 +280,6 @@ Identity and Access Mgmt</textarea>
 
 	}
 
-
-  function outFunc() {
-    var tooltip = document.getElementById("myTooltip");
-    tooltip.innerHTML = "Copy to clipboard";
-  }
-
  
 
 </script>
@@ -286,26 +289,64 @@ Identity and Access Mgmt</textarea>
 
     var inputArr = document.getElementsByClassName("myInputOuter")
     var inputButt = document.getElementById("inputButt")
-    var lastChild = inputArr.length - 1
-    let inputCode = "<div class='myInputOuter'> <input type='text' value='Hello World' class='myInput'> <div> <button class='copyInput tooltip' onmouseout='outFunc()'> <span class='tooltiptext' class='myInputTooltip'>Copy to clipboard</span>Copy text </button> <button id='splitText'>Split Text</button> </div></div>"
+    let inputCode = "<div class='myInputOuter'> <input type='text' value='' class='myInput'> <div class='tooltip'> <button class='copyInput' > <span class='tooltiptext' class='myInputTooltip'>Copy to clipboard</span>Copy text </button> </div></div>"
 
     inputButt.addEventListener("click", (j) => {
-
-      console.log(inputArr[lastChild])
+      let lastChild = inputArr.length - 1
+      
       inputArr[lastChild].insertAdjacentHTML('afterend', inputCode)
-      save()
+      
     })
     
-    function save() {
-      console.log(document)
+    async function Save() {
+      
+      const narray = Array.from(document.getElementsByClassName("myInput"))
+      const rarray = Array.from(document.getElementsByClassName("myResponse"))
+      
+      narray.map((arr, i) => {
+      let n = document.getElementsByClassName("myInput")
+      return n[i].setAttribute('value', arr.value)
+      })
+
+      rarray.map((arr, i) => {
+      let r = document.getElementsByClassName("myResponse")
+      return r[i].innerHTML = arr.value
+      })
+
+      const doc = document.documentElement.innerHTML
+      const blob = new Blob([doc], {type: "text/html"})
+      const dirName = window.location.href
+      
+      // create a new handle
+      const newHandle = await window.showSaveFilePicker();
+
+      // create a FileSystemWritableFileStream to write to
+      const writableStream = await newHandle.createWritable();
+
+      // write our file
+      await writableStream.write(blob);
+
+      // close the file and write the contents to disk.
+      await writableStream.close();
     }
 </script>
 
 <!--Response Script-->
 <script>
+  var addResponse = document.getElementById("addResponse")
 	var resp = document.getElementsByClassName("myResponse");
 	var copyResp = document.getElementsByClassName("copyResponse")
-    var arr = []
+	var newResp = document.getElementsByClassName("responses");
+  const responseCode = "<div class='responses'> <textarea type='text' value='' class='myResponse' disabled='true'></textarea> <div class='tooltip'> <button class='copyResponse' onclick='' > <span class='tooltiptext' id='myTooltip'>Copy to clipboard</span> Copy text </button> </div> </div>"
+  var arr = []
+
+  //Add Response
+  addResponse.addEventListener("click", (j) => {
+    let lastRChild = newResp.length - 1
+    
+    newResp[lastRChild].insertAdjacentHTML('afterend', responseCode)
+
+})
 	
 	for(var i = 0 ; i < copyResp.length; i++) {
         let responseArray = arr.push(copyResp[i])
@@ -321,8 +362,46 @@ Identity and Access Mgmt</textarea>
 	}
 </script>
 
+
+<!-- Edit Script -->
+<script>
+  const Edit = () => { 
+    const i = Array.from(document.getElementsByClassName("tooltip"))
+    const delButtCheck = Array.from(document.getElementsByClassName("delButt"))
+    const t = Array.from(document.getElementsByClassName("myResponse"))
+
+    if(delButtCheck.length == 0){
+      
+      t.map((e) => {
+        e.toggleAttribute('disabled') 
+      })
+      i.map((e) => {
+        const delButt = "<button class='delButt' onclick='Remove(this)'>Delete</button>"
+        e.insertAdjacentHTML('afterend', delButt)
+      })
+    }
+    
+    else {
+      t.map((e) => {
+        e.toggleAttribute('disabled') 
+      })
+      delButtCheck.map((d) => {
+        d.remove()
+      })
+    }
+    
+  }
+
+  const Remove = (k) => {
+    k.parentElement.remove()
+  }
+
+</script>
+
+
+	
+
+
+	
 	
 </body>
-</html>
-	
-	
