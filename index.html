@@ -86,7 +86,7 @@
         <button id="inputButt"><h3>+Input</h3></button>
         <button id="addResponse"><h3>+Response</h3></button>
         <button onclick="Save()"><h3>Save</h3></button>
-        <button onclick="Edit()"><h3>Edit</h3></button>
+        <button onclick="Edit()"><h3 id="Edit">Edit</h3></button>
 
       </div>
       
@@ -108,8 +108,25 @@
 <!--Split Text fName lName-->
 
 <!--F-NAME-->
+<div class="myInputOuter">
+      <input type="text" value="" class="myInput" id="fName">
 
+      <div class="tooltip1">
+        <button class="copyInput" onmouseout="outFunc()">
+          <span class="tooltiptext" class="myInputTooltip">Copy to clipboard</span>Copy text
+        </button>
+      </div>
+</div>
 <!--L-NAME-->
+<div class="myInputOuter">
+      <input type="text" value="" class="myInput" id="lName">
+
+      <div class="tooltip1">
+        <button class="copyInput" onmouseout="outFunc()">
+          <span class="tooltiptext" class="myInputTooltip">Copy to clipboard</span>Copy text
+        </button>
+      </div>
+</div>
 
 <!--Response to Client 1-->
       <div class="responses">
@@ -124,20 +141,6 @@
           
     
       </div>
-    
-<!--Response to Client 2-->
-	
-      	
-
-<!--Response to Client 3-->
-
-      
-  
-	
-	
-<!--Response to Client 4-->
-
-      
   </div>
 	
 <!--User Input Script-->
@@ -286,11 +289,17 @@
     const i = Array.from(document.getElementsByClassName("tooltip"))
     const delButtCheck = Array.from(document.getElementsByClassName("delButt"))
     const t = Array.from(document.getElementsByClassName("myResponse"))
-
+    const inputButt = document.getElementById("inputButt")
+    const addResponse = document.getElementById("addResponse")
+    const Edit = document.getElementById("Edit")
+    
     if(delButtCheck.length == 0){
-      
+      inputButt.toggleAttribute('disabled') 
+      addResponse.toggleAttribute('disabled')
+      Edit.innerHtml = "Edit"
+	    
       t.map((e) => {
-        e.toggleAttribute('disabled') 
+        e.toggleAttribute('disabled')
       })
       i.map((e) => {
         const delButt = "<button class='delButt' onclick='Remove(this)'>Delete</button>"
@@ -299,6 +308,10 @@
     }
     
     else {
+      inputButt.toggleAttribute('disabled') 
+      addResponse.toggleAttribute('disabled')
+      Edit.innerHtml = "Done"
+	    
       t.map((e) => {
         e.toggleAttribute('disabled') 
       })
