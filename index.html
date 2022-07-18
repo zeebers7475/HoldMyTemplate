@@ -81,7 +81,7 @@
 <body>
 
     <div class="flex">
-      <h2>CopyBoard</h2>
+      <h2>HoldMyTemplate</h2>
       <div class="flex">
         <button id="inputButt"><h3>+Input</h3></button>
         <button id="addResponse"><h3>+Response</h3></button>
@@ -296,7 +296,7 @@
     if(delButtCheck.length == 0){
       inputButt.toggleAttribute('disabled') 
       addResponse.toggleAttribute('disabled')
-      Edit.innerHtml = "Edit"
+      Edit.innerHTML = "Done"
 	    
       t.map((e) => {
         e.toggleAttribute('disabled')
@@ -310,7 +310,7 @@
     else {
       inputButt.toggleAttribute('disabled') 
       addResponse.toggleAttribute('disabled')
-      Edit.innerHtml = "Done"
+      Edit.innerHTML = "Edit"
 	    
       t.map((e) => {
         e.toggleAttribute('disabled') 
