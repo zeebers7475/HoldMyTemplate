@@ -52,7 +52,10 @@
   visibility: hidden;
   opacity: 1;
 }
-.flex {
+.outer-flex > h3 {
+  margin:1rem;
+}
+.outer-flex {
   display:flex;
   flex-direction: row;
   justify-content: space-between;
@@ -60,7 +63,14 @@
   align-items: center;
   margin-bottom:2rem;
 }
-.flex button, h2 {
+.flex {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.flex button {
   margin:1rem;
 }
 .flex-body {
@@ -84,8 +94,8 @@
 </head>
 <body>
 
-    <div class="flex">
-      <h2>HoldMyTemplate</h2>
+    <div class="outer-flex">
+      <h3>Hold My<br>Template</h3>
       <div class="flex">
         <button id="inputButt"><h3>+Input</h3></button>
         <button id="addResponse"><h3>+Response</h3></button>
@@ -103,10 +113,10 @@
       <input type="text" value="" class="myInput">
 
       <div class="tooltip1">
-        <button class="copyInput">
+        <button class="copyInput" onclick="Copy(this)">
           Copy text
         </button>
-        <button id="splitText">Split Text</button>
+        <button id="splitText" onclick="Split(this)">Split Text</button>
       </div>
 </div>
 <!--Split Text fName lName-->
@@ -116,7 +126,7 @@
       <input type="text" value="" class="myInput" id="fName">
 
       <div class="tooltip1">
-        <button class="copyInput" onmouseout="outFunc()">
+        <button class="copyInput" onclick="Copy(this)">
           Copy text
         </button>
       </div>
@@ -126,7 +136,7 @@
       <input type="text" value="" class="myInput" id="lName">
 
       <div class="tooltip1">
-        <button class="copyInput" onmouseout="outFunc()">
+        <button class="copyInput" onclick="Copy(this)">
           Copy text
         </button>
       </div>
@@ -137,22 +147,23 @@
           <textarea type="text" value="" class="myResponse" disabled=""></textarea>
     
           <div class="tooltip1">
-              <button class="copyResponse" onclick="">
+              <button class="copyResponse" onclick="Copy(this)">
               Copy text
               </button>
           </div>
-      </div>
+      </div><div class="responses"> <textarea type="text" value="" class="myResponse" disabled=""></textarea> <div class="tooltip"> <button class="copyResponse" onclick="Copy(this)"> <span class="tooltiptext" id="myTooltip">Copy to clipboard</span> Copy text </button> </div> </div><div class="responses"> <textarea type="text" value="" class="myResponse" disabled="">ADID:
+
+
+Email:
+
+
+Model:
+
+
+</textarea> <div class="tooltip"> <button class="copyResponse" onclick="Copy(this)"> <span class="tooltiptext" id="myTooltip">Copy to clipboard</span> Copy text </button> </div> </div>
 	    
 <!--Response to Client 2-->
-      <div class="responses">
-          <textarea type="text" value="" class="myResponse" disabled=""></textarea>
-    
-          <div class="tooltip">
-              <button class="copyResponse" onclick="">
-              Copy text
-              </button>
-          </div>
-      </div>
+      
   </div>
 
 <main class="instructions">	
@@ -161,66 +172,54 @@
 	<p>Click Edit to enter information into the large boxes, or delete templates.</p> 
 	<p>Click Save to Save your templates locally on your computer. Once done double click the file and it will open in a web browser with your templates.</p>
 </main>
-	
-<!--User Input Script-->
 
+<!-- Copy -->
 <script>
-  var copyText = document.getElementsByClassName("myInput");
-  var splitText = document.getElementById("splitText")
-  var fInput = document.getElementById("fName")
-  var lInput = document.getElementById("lName")
-  let fullName;
-  var input = document.getElementsByClassName("myInput");
-	var copyInput = document.getElementsByClassName("copyInput")
-    var arr = []
-	
-	for(var i = 0 ; i < copyInput.length; i++) {
-        let inputArray = arr.push(copyInput[i])
-		copyInput[i].addEventListener("click",(j) => {
 
-            input[inputArray - 1].select();
-  	        input[inputArray - 1].setSelectionRange(0, 99999);
-  	        navigator.clipboard.writeText(input[inputArray - 1].value);
-            input[inputArray - 1].setAttribute('value', input[inputArray - 1].value)
-            
-		});
+    function Copy(k) {
+      const template = k.parentElement.previousElementSibling
+  
+      template.select()
+      template.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(template.value);
+    }
+  
+</script>
 
-    splitText.addEventListener("click", (c) => {
-              input[inputArray - 1].select(c);
-              input[inputArray - 1].setSelectionRange(0, 99999);
-              let fullText = input[inputArray - 1].value
-              switch (true) {
-                case fullText.includes("."):
-                  fullName = fullText.split(".",);
-                  break;
-                case fullText.includes(". "):
-                  fullName = fullText.split(".",);
-                  break;
-                case fullText.includes(","):
-                  fullName = fullText.split(",",);
-                  break;
-                case fullText.includes(", "):
-                  fullName = fullText.split(",",);
-                  break;
-                case fullText.includes("  "):
-                  fullName = fullText.split("  ",);
-                  break;
-                case fullText.includes(" "):
-                  fullName = fullText.split(" ",);
-                  break;
-              }     
-              let fName = fullName[0]
-              let lName = fullName[1]
-              fInput.value = fName
-              lInput.value = lName
+<!-- Split -->
+<script>
 
+    function Split(k) {
+        const split = k.parentElement.previousElementSibling
 
-            })
-
-	}
-
- 
-
+        split.select();
+        split.setSelectionRange(0, 99999);
+        let fullText = split.value
+        switch (true) {
+        case fullText.includes("."):
+            fullName = fullText.split(".",);
+            break;
+        case fullText.includes(". "):
+            fullName = fullText.split(".",);
+            break;
+        case fullText.includes(","):
+            fullName = fullText.split(",",);
+            break;
+        case fullText.includes(", "):
+            fullName = fullText.split(",",);
+            break;
+        case fullText.includes("  "):
+            fullName = fullText.split("  ",);
+            break;
+        case fullText.includes(" "):
+            fullName = fullText.split(" ",);
+            break;
+        }     
+        let fName = fullName[0]
+        let lName = fullName[1]
+        fInput.value = fName
+        lInput.value = lName
+    }
 </script>
 
 <!--Add Input-->
@@ -228,7 +227,7 @@
 
     var inputArr = document.getElementsByClassName("myInputOuter")
     var inputButt = document.getElementById("inputButt")
-    let inputCode = "<div class='myInputOuter'> <input type='text' value='' class='myInput'> <div class='tooltip'> <button class='copyInput' > <span class='tooltiptext' class='myInputTooltip'>Copy to clipboard</span>Copy text </button> </div></div>"
+    let inputCode = "<div class='myInputOuter'> <input type='text' value='' class='myInput'> <div class='tooltip'> <button class='copyInput' onclick='Copy(this)'> <span class='tooltiptext' class='myInputTooltip'>Copy to clipboard</span>Copy text </button> </div></div>"
 
     inputButt.addEventListener("click", (j) => {
       let lastChild = inputArr.length - 1
@@ -236,8 +235,26 @@
       inputArr[lastChild].insertAdjacentHTML('afterend', inputCode)
       
     })
+</script>
+
+<!-- Add Response-->
+<script>
+  var addResponse = document.getElementById("addResponse")
+  var newResp = document.getElementsByClassName("responses");
+  const responseCode = "<div class='responses'> <textarea type='text' value='' class='myResponse' disabled='true'></textarea> <div class='tooltip'> <button class='copyResponse' onclick='Copy(this)' > <span class='tooltiptext' id='myTooltip'>Copy to clipboard</span> Copy text </button> </div> </div>"
+
+  addResponse.addEventListener("click", (j) => {
+    let lastRChild = newResp.length - 1
     
-    async function Save() {
+    newResp[lastRChild].insertAdjacentHTML('afterend', responseCode)
+
+})
+</script>
+
+<!-- Save -->
+<script>
+
+async function Save() {
       
       const narray = Array.from(document.getElementsByClassName("myInput"))
       const rarray = Array.from(document.getElementsByClassName("myResponse"))
@@ -254,10 +271,16 @@
 
       const doc = document.documentElement.innerHTML
       const blob = new Blob([doc], {type: "text/html"})
-      const dirName = window.location.href
+      const opts = {
+        suggestedName: 'HandleMyTemplate.html',
+        types: [{
+          description: 'HTML',
+          accept: {'text/html': ['.html']},
+        }],
+      }
       
       // create a new handle
-      const newHandle = await window.showSaveFilePicker();
+      const newHandle = await window.showSaveFilePicker(opts);
 
       // create a FileSystemWritableFileStream to write to
       const writableStream = await newHandle.createWritable();
@@ -269,38 +292,6 @@
       await writableStream.close();
     }
 </script>
-
-<!--Response Script-->
-<script>
-  var addResponse = document.getElementById("addResponse")
-	var resp = document.getElementsByClassName("myResponse");
-	var copyResp = document.getElementsByClassName("copyResponse")
-	var newResp = document.getElementsByClassName("responses");
-  const responseCode = "<div class='responses'> <textarea type='text' value='' class='myResponse' disabled='true'></textarea> <div class='tooltip'> <button class='copyResponse' onclick='' > <span class='tooltiptext' id='myTooltip'>Copy to clipboard</span> Copy text </button> </div> </div>"
-  var arr = []
-
-  //Add Response
-  addResponse.addEventListener("click", (j) => {
-    let lastRChild = newResp.length - 1
-    
-    newResp[lastRChild].insertAdjacentHTML('afterend', responseCode)
-
-})
-	
-	for(var i = 0 ; i < copyResp.length; i++) {
-        let responseArray = arr.push(copyResp[i])
-		copyResp[i].addEventListener("click",(j) => {
-
-            resp[responseArray - 1].select();
-  	        resp[responseArray - 1].setSelectionRange(0, 99999);
-  	        navigator.clipboard.writeText(resp[responseArray - 1].value);
-
-            var tooltip = document.getElementById("myTooltip");
-            tooltip.innerHTML = "Copied: " + resp[responseArray - 1].value;
-		});
-	}
-</script>
-
 
 <!-- Edit Script -->
 <script>
@@ -346,11 +337,4 @@
   }
 
 </script>
-
-
-	
-
-
-	
-	
 </body>
